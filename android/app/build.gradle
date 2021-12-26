@@ -1,0 +1,132 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+android {
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId "com.cy.clicli_dark"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : 'a8e4d99ac7f968133d73ff19',
+                JPUSH_CHANNEL: "developer-default",
+        ]
+    }
+
+//    signingConfigs {
+//        config {
+//            keyAlias keystoreProperties["keyAlias"]
+//            keyPassword keystoreProperties["keyPassword"]
+//            storeFile file(keystoreProperties["storeFile"])
+//            storePassword keystoreProperties["storePassword"]
+//        }
+//    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            // signingConfig signingConfigs.config
+        }
+        profile {
+            minifyEnabled false
+            shrinkResources false
+            // signingConfig signingConfigs.config
+        }
+        release {
+            signingConfig signingConfigs.debug
+
+            ndk {
+                abiFilters "armeabi-v7a", "arm64-v8a"
+                // 'armeabi', 'armeabi-v7a', 'x86'//, 'x86_64', 'mips', 'mips64', 'arm64-v8a',
+            }
+        }
+    }
+
+    tasks.whenTaskAdded { task ->
+        if (task.name == "assembleRelease") {
+            task.finalizedBy copyRelease
+        }
+    }
+}
+
+task copyRelease {
+    doLast {
+        def fromFile = "../../build/app/outputs/apk/release/app-release.apk"
+        def intoFile = "../../release/"
+        def sourceFile = file(fromFile)
+        def destinationPath = file(intoFile)
+        def time = buildTime()
+        def destinationFileName = "clicli_v${flutterVersionName}+${flutterVersionCode}_${time}.apk"
+
+
+        if (!sourceFile.exists()) {
+            throw new GradleException("Source file does not exist.")
+        } else {
+            if (!destinationPath.exists()) {
+                destinationPath.mkdir()
+            }
+            copy {
+                from fromFile
+                into intoFile
+                rename { destinationFileName }
+            }
+        }
+        println("\nRelease file copied to ${destinationPath}/${destinationFileName} .")
+    }
+}
+
+def static buildTime() {
+    return new Date().format("MMdd-HHmmss")
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
