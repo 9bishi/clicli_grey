@@ -1,21 +1,25 @@
 import 'package:chewie/chewie.dart' hide MaterialControls;
+import 'package:clicli_grey/widgets/clicli_video_control.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-// import 'hi_video_controls.dart';
+import 'clicli_video_control.dart';
 
 class VideoView extends StatefulWidget {
   final String url;
+  final String? cover;
   final bool autoPlay;
   final bool looping;
   final double aspectRatio;
 
-  const VideoView(this.url,
-      {Key? key,
-      this.autoPlay = false,
-      this.looping = false,
-      this.aspectRatio = 16 / 9,})
-      : super(key: key);
+  const VideoView(
+    this.url, {
+    Key? key,
+    this.cover,
+    this.autoPlay = false,
+    this.looping = false,
+    this.aspectRatio = 16 / 9,
+  }) : super(key: key);
 
   @override
   _VideoViewState createState() => _VideoViewState();
@@ -24,7 +28,6 @@ class VideoView extends StatefulWidget {
 class _VideoViewState extends State<VideoView> {
   VideoPlayerController? _videoPlayerController; //video_player播放器Controller
   ChewieController? _chewieController; //chewie播放器Controller
-
   //进度条颜色配置
   get _progressColors => ChewieProgressColors(
       playedColor: const Color.fromRGBO(148, 107, 230, 0.7),
@@ -44,6 +47,9 @@ class _VideoViewState extends State<VideoView> {
         looping: widget.looping,
         allowMuting: false,
         allowPlaybackSpeedChanging: false,
+        customControls: const MaterialControls(
+          showPlayButton: true,
+        ),
         materialProgressColors: _progressColors);
   }
 
@@ -61,7 +67,7 @@ class _VideoViewState extends State<VideoView> {
     return Container(
       width: screenWidth,
       height: playerHeight,
-      color: Colors.grey,
+      color: Colors.black87,
       child: Chewie(
         controller: _chewieController!,
       ),

@@ -49,7 +49,6 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
       var v = video.split(" ");
       videoList.add(v);
       dataSourceList.add(v[1]);
-      print(dataSourceList);
     }
 
     if (mounted) {
@@ -90,7 +89,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
         body: videoList.isNotEmpty
             ? Column(
                 children: <Widget>[
-                  VideoView(dataSourceList[currPlayIndex]),
+                  VideoView(dataSourceList[currPlayIndex],cover: getSuo(widget.data['content']),),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
