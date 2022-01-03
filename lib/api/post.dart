@@ -1,7 +1,6 @@
 import 'package:clicli_grey/utils/dio_utils.dart';
 
 const host = 'https://api.clicli.cc';
-// !kDebugMode ? 'http://localhost:8080' : 'http://64.227.101.251:8080';
 
 getPost(
   type,

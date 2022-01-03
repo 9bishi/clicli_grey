@@ -2,6 +2,7 @@
     package="com.example.clicli_grey">
    <application
         android:label="CliCli"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

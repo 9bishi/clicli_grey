@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:clicli_grey/widgets/video_view.dart';
 
 //https://stackoverflow.com/questions/52431109/flutter-video-player-fullscreen
 class PlayerPage extends StatefulWidget with WidgetsBindingObserver {
@@ -35,7 +36,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
   Map postDetail = {};
   Map videoSrc = {};
   int currPlayIndex = 0;
-  List<BetterPlayerDataSource> dataSourceList = [];
+  List dataSourceList = [];
   BetterPlayerPlaylistController? playerController;
   BetterPlayerConfiguration? palyerConfig;
 
@@ -47,8 +48,8 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
     for (var video in videos) {
       var v = video.split(" ");
       videoList.add(v);
-      dataSourceList.add(
-          BetterPlayerDataSource(BetterPlayerDataSourceType.network, v[1]));
+      dataSourceList.add(v[1]);
+      print(dataSourceList);
     }
 
     if (mounted) {
@@ -64,48 +65,13 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
     }
   }
 
-  initPlayer() async {
-    playerController = BetterPlayerPlaylistController(
-      dataSourceList,
-      betterPlayerPlaylistConfiguration: BetterPlayerPlaylistConfiguration(
-        nextVideoDelay: const Duration(milliseconds: 500),
-        loopVideos: false,
-        initialStartIndex: currPlayIndex,
-      ),
-      betterPlayerConfiguration: BetterPlayerConfiguration(
-        eventListener: (BetterPlayerEvent event) {
-          if (event.betterPlayerEventType == BetterPlayerEventType.finished) {
-            setState(() {
-              currPlayIndex = currPlayIndex + 1;
-            });
-          }
-        },
-        autoPlay: true,
-        fit: BoxFit.contain,
-        aspectRatio: 16 / 9,
-        allowedScreenSleep: false,
-        showPlaceholderUntilPlay: true,
-        controlsConfiguration: BetterPlayerControlsConfiguration(
-          iconsColor: Colors.white,
-          enableMute: false,
-          controlBarColor: Colors.black.withOpacity(0.4),
-          enableProgressText: true,
-          showControlsOnInitialize: false,
-        ),
-      ),
-    );
-  }
+  initPlayer() async {}
 
   @override
   void initState() {
     super.initState();
     getDetail();
     getFollowBgi();
-  }
-
-  @override
-  void dispose() {
-    _tabController?.dispose();
   }
 
   @override
@@ -124,8 +90,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
         body: videoList.isNotEmpty
             ? Column(
                 children: <Widget>[
-                  BetterPlayerPlaylist(
-                      betterPlayerPlaylistController: playerController!),
+                  VideoView(dataSourceList[currPlayIndex]),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -281,7 +246,6 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
             onTap: () {
               if (i != currPlayIndex) {
                 currPlayIndex = i;
-                playerController!.setupDataSource(i);
                 setState(() {});
               }
             },
@@ -454,62 +418,5 @@ class _PlayerProfile extends State<PlayerProfile>
             ),
           ],
         ));
-  }
-}
-
-///Special version of Better Player used to play videos in playlist.
-class BetterPlayerPlaylist extends StatefulWidget {
-  final List<BetterPlayerDataSource>? betterPlayerDataSourceList;
-  final BetterPlayerConfiguration? betterPlayerConfiguration;
-  final BetterPlayerPlaylistConfiguration? betterPlayerPlaylistConfiguration;
-  final BetterPlayerPlaylistController? betterPlayerPlaylistController;
-
-  const BetterPlayerPlaylist({
-    Key? key,
-    this.betterPlayerDataSourceList,
-    this.betterPlayerConfiguration,
-    this.betterPlayerPlaylistConfiguration,
-    this.betterPlayerPlaylistController,
-  }) : super(key: key);
-
-  @override
-  BetterPlayerPlaylistState createState() => BetterPlayerPlaylistState();
-}
-
-///State of BetterPlayerPlaylist, used to access BetterPlayerPlaylistController.
-class BetterPlayerPlaylistState extends State<BetterPlayerPlaylist> {
-  BetterPlayerPlaylistController? _betterPlayerPlaylistController;
-
-  BetterPlayerController? get _betterPlayerController =>
-      _betterPlayerPlaylistController!.betterPlayerController;
-
-  ///Get BetterPlayerPlaylistController
-  BetterPlayerPlaylistController? get betterPlayerPlaylistController =>
-      _betterPlayerPlaylistController;
-
-  @override
-  void initState() {
-    _betterPlayerPlaylistController = widget.betterPlayerPlaylistController ??
-        BetterPlayerPlaylistController(widget.betterPlayerDataSourceList!,
-            betterPlayerConfiguration: widget.betterPlayerConfiguration!,
-            betterPlayerPlaylistConfiguration:
-                widget.betterPlayerPlaylistConfiguration!);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: _betterPlayerController!.getAspectRatio() ?? 16 / 9,
-      child: BetterPlayer(
-        controller: _betterPlayerController!,
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _betterPlayerPlaylistController!.dispose();
-    super.dispose();
   }
 }
