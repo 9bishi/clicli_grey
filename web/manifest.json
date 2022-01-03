@@ -1,6 +1,6 @@
 {
-    "name": "clicli_dark",
-    "short_name": "clicli_dark",
+    "name": "clicli_grey",
+    "short_name": "clicli_grey",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

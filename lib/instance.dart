@@ -1,4 +1,4 @@
-import 'package:clicli_dark/config.dart';
+import 'package:clicli_grey/config.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

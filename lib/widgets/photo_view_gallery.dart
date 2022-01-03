@@ -1,4 +1,4 @@
-import 'package:clicli_dark/widgets/empty_appbar.dart';
+import 'package:clicli_grey/widgets/empty_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';

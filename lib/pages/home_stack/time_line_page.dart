@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:clicli_dark/api/post.dart';
-import 'package:clicli_dark/widgets//post_card.dart';
+import 'package:clicli_grey/api/post.dart';
+import 'package:clicli_grey/widgets//post_card.dart';
 import 'package:flutter/material.dart';
 
 class TimeLinePage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _TimeLineState extends State<TimeLinePage> {
   static const List week = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
   List<List> data = [[], [], [], [], [], [], []];
 
-  Future<Object> getUGC() async {
+  getUGC() async {
     data = [[], [], [], [], [], [], []];
     final res = (await getPost('新番', '', 1, 100)).data;
     final List _res = jsonDecode(res)['posts'];
@@ -29,7 +29,13 @@ class _TimeLineState extends State<TimeLinePage> {
       data[day].add(f);
     }
 
-    return data;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+        getUGC();
   }
 
   @override

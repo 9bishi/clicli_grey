@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:clicli_dark/instance.dart';
-import 'package:clicli_dark/pages/player_page.dart';
-import 'package:clicli_dark/widgets/common_widget.dart';
+import 'package:clicli_grey/instance.dart';
+import 'package:clicli_grey/pages/player_page.dart';
+import 'package:clicli_grey/widgets/common_widget.dart';
 import 'package:flutter/material.dart';
 
 class HistoryPage extends StatefulWidget {

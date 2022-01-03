@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:math' show max;
 
-import 'package:clicli_dark/api/post.dart';
-import 'package:clicli_dark/instance.dart';
-import 'package:clicli_dark/utils/toast_utils.dart';
+import 'package:clicli_grey/api/post.dart';
+import 'package:clicli_grey/instance.dart';
+import 'package:clicli_grey/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';

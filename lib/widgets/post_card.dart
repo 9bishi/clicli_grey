@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:clicli_dark/pages/player_page.dart';
-import 'package:clicli_dark/utils/reg_utils.dart';
+import 'package:clicli_grey/pages/player_page.dart';
+import 'package:clicli_grey/utils/reg_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 

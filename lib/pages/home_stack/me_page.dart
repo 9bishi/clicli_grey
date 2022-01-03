@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:clicli_dark/instance.dart';
-import 'package:clicli_dark/service/events.dart';
-import 'package:clicli_dark/utils/version_util.dart';
+import 'package:clicli_grey/instance.dart';
+import 'package:clicli_grey/service/events.dart';
+import 'package:clicli_grey/utils/version_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -107,7 +107,7 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
                     width: 25,
                   ),
                   title: const Text('投稿大队'),
-                  onTap: () => launch('https://jq.qq.com/?_wv=1027&k=5lfSD1B'),
+                  onTap: () => launch('https://qm.qq.com/cgi-bin/qm/qr?k=z-UI5jwoxEEL3JvEV4ISZbujBXMaskqk&jump_from=webapi'),
                 ),
                 ListTile(
                   leading: SvgPicture.asset(
