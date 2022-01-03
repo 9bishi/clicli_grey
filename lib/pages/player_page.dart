@@ -12,7 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:clicli_grey/widgets/video_view.dart';
+import 'package:chewie/chewie.dart' hide MaterialControls;
+import 'package:clicli_grey/widgets/clicli_video_control.dart';
+import 'package:video_player/video_player.dart';
+
+import 'package:clicli_grey/widgets/clicli_video_control.dart';
 
 //https://stackoverflow.com/questions/52431109/flutter-video-player-fullscreen
 class PlayerPage extends StatefulWidget with WidgetsBindingObserver {
@@ -30,6 +34,8 @@ class PlayerPage extends StatefulWidget with WidgetsBindingObserver {
 //https://vt1.doubanio.com/201902111139/0c06a85c600b915d8c9cbdbbaf06ba9f/view/movie/M/302420330.mp4
 class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
   TabController? _tabController;
+  VideoPlayerController? _videoPlayerController;
+  ChewieController? _chewieController;
 
   List videoList = [];
   Map postDetail = {};
@@ -61,7 +67,27 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
     }
   }
 
-  initPlayer() async {}
+  get _progressColors => ChewieProgressColors(
+      playedColor: const Color.fromRGBO(148, 107, 230, 0.7),
+      handleColor: const Color.fromRGBO(148, 107, 230, 1),
+      backgroundColor: const Color.fromRGBO(240, 240, 245, 0.5),
+      bufferedColor: const Color.fromRGBO(240, 240, 245, 1));
+
+  initPlayer() async {
+    _videoPlayerController =
+        VideoPlayerController.network(dataSourceList[currPlayIndex]);
+    _chewieController = ChewieController(
+        videoPlayerController: _videoPlayerController!,
+        aspectRatio: 16 / 9,
+        autoPlay: true,
+        looping: false,
+        allowMuting: false,
+        allowPlaybackSpeedChanging: false,
+        customControls: const MaterialControls(
+          showPlayButton: true,
+        ),
+        materialProgressColors: _progressColors);
+  }
 
   @override
   void initState() {
@@ -73,6 +99,8 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final detail = widget.data;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double playerHeight = screenWidth / 16 * 9;
     return Scaffold(
         appBar: videoList.isEmpty
             ? AppBar(
@@ -86,7 +114,14 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
         body: videoList.isNotEmpty
             ? Column(
                 children: <Widget>[
-                  VideoView(dataSourceList[currPlayIndex],cover: getSuo(widget.data['content']),),
+                  Container(
+                    width: screenWidth,
+                    height: playerHeight,
+                    color: Colors.grey,
+                    child: Chewie(
+                      controller: _chewieController!,
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -126,6 +161,13 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
                 ],
               )
             : PlayerProfile(detail, videoList.isNotEmpty));
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController?.dispose();
+    _chewieController?.dispose();
+    super.dispose();
   }
 
   bool hasFollowBgi = false;
@@ -242,6 +284,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
             onTap: () {
               if (i != currPlayIndex) {
                 currPlayIndex = i;
+                initPlayer();
                 setState(() {});
               }
             },

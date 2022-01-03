@@ -40,7 +40,7 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
   bool _dragging = false;
   bool _displayTapped = false;
 
-  final barHeight = 48.0 * 1.5;
+  final barHeight = 40.0;
   final marginSize = 5.0;
 
   late VideoPlayerController controller;
@@ -339,6 +339,7 @@ GestureDetector _buildMuteButton(
           child: Center(
             child: Icon(
               chewieController.isFullScreen ? Icons.fullscreen_exit : Icons.fullscreen,
+              size: 30,
               color: Colors.white,
             ),
           ),
@@ -413,14 +414,14 @@ GestureDetector _buildMuteButton(
           TextSpan(
             text: '/ ${formatDuration(duration)}',
             style: TextStyle(
-              fontSize: 14.0,
+              fontSize: 12.0,
               color: Colors.white.withOpacity(.75),
               fontWeight: FontWeight.normal,
             ),
           )
         ],
         style: const TextStyle(
-          fontSize: 14.0,
+          fontSize: 12.0,
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
@@ -541,7 +542,7 @@ GestureDetector _buildMuteButton(
 
   Widget _buildProgressBar() {
     return Expanded(
-      child: Padding(padding:const EdgeInsets.only(left: 10),child: MaterialVideoProgressBar(
+      child: Padding(padding:const EdgeInsets.only(left: 15),child: MaterialVideoProgressBar(
         controller,
         onDragStart: () {
           setState(() {
