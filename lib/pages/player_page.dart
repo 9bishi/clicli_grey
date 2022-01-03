@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:better_player/better_player.dart';
 import 'package:clicli_grey/api/post.dart';
 import 'package:clicli_grey/instance.dart';
 import 'package:clicli_grey/pages/search_page.dart';
@@ -37,8 +36,6 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
   Map videoSrc = {};
   int currPlayIndex = 0;
   List dataSourceList = [];
-  BetterPlayerPlaylistController? playerController;
-  BetterPlayerConfiguration? palyerConfig;
 
   getDetail() async {
     postDetail =
