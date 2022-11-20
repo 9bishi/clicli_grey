@@ -10,6 +10,7 @@ import 'package:chewie/src/material/widgets/options_dialog.dart';
 import 'package:chewie/src/models/subtitle_model.dart';
 import 'package:chewie/src/notifiers/index.dart';
 import 'package:chewie/src/material/widgets/playback_speed_dialog.dart';
+import 'package:chewie/src/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
@@ -28,7 +29,8 @@ class MaterialControls extends StatefulWidget {
   }
 }
 
-class _MaterialControlsState extends State<MaterialControls> with SingleTickerProviderStateMixin {
+class _MaterialControlsState extends State<MaterialControls>
+    with SingleTickerProviderStateMixin {
   late PlayerNotifier notifier;
   late VideoPlayerValue _latestValue;
   double? _latestVolume;
@@ -93,8 +95,10 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
                 children: <Widget>[
                   if (_subtitleOn)
                     Transform.translate(
-                      offset: Offset(0.0, notifier.hideStuff ? barHeight * 0.8 : 0.0),
-                      child: _buildSubtitles(context, chewieController.subtitle!),
+                      offset: Offset(
+                          0.0, notifier.hideStuff ? barHeight * 0.8 : 0.0),
+                      child:
+                          _buildSubtitles(context, chewieController.subtitle!),
                     ),
                   _buildBottomBar(context),
                 ],
@@ -160,24 +164,30 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
           _onSpeedButtonTap();
         },
         iconData: Icons.speed,
-        title: chewieController.optionsTranslation?.playbackSpeedButtonText ?? 'Playback speed',
+        title: chewieController.optionsTranslation?.playbackSpeedButtonText ??
+            'Playback speed',
       )
     ];
 
-    if (chewieController.subtitle != null && chewieController.subtitle!.isNotEmpty) {
+    if (chewieController.subtitle != null &&
+        chewieController.subtitle!.isNotEmpty) {
       options.add(
         OptionItem(
           onTap: () {
             _onSubtitleTap();
             Navigator.pop(context);
           },
-          iconData: _subtitleOn ? Icons.closed_caption : Icons.closed_caption_off_outlined,
-          title: chewieController.optionsTranslation?.subtitlesButtonText ?? 'Subtitles',
+          iconData: _subtitleOn
+              ? Icons.closed_caption
+              : Icons.closed_caption_off_outlined,
+          title: chewieController.optionsTranslation?.subtitlesButtonText ??
+              'Subtitles',
         ),
       );
     }
 
-    if (chewieController.additionalOptions != null && chewieController.additionalOptions!(context).isNotEmpty) {
+    if (chewieController.additionalOptions != null &&
+        chewieController.additionalOptions!(context).isNotEmpty) {
       options.addAll(chewieController.additionalOptions!(context));
     }
 
@@ -196,7 +206,8 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
               isScrollControlled: true,
               builder: (context) => OptionsDialog(
                 options: options,
-                cancelButtonText: chewieController.optionsTranslation?.cancelButtonText,
+                cancelButtonText:
+                    chewieController.optionsTranslation?.cancelButtonText,
               ),
             );
           }
@@ -273,11 +284,11 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     _buildPosition(iconColor),
-
-                    if (chewieController.allowMuting) _buildMuteButton(controller),
+                    if (chewieController.allowMuting)
+                      _buildMuteButton(controller),
                     if (!chewieController.isLive) _buildProgressBar(),
                     if (chewieController.allowFullScreen) _buildExpandButton(),
-                    ],
+                  ],
                 ),
               ),
               SizedBox(
@@ -290,7 +301,7 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
     );
   }
 
-GestureDetector _buildMuteButton(
+  GestureDetector _buildMuteButton(
     VideoPlayerController controller,
   ) {
     return GestureDetector(
@@ -338,7 +349,9 @@ GestureDetector _buildMuteButton(
           ),
           child: Center(
             child: Icon(
-              chewieController.isFullScreen ? Icons.fullscreen_exit : Icons.fullscreen,
+              chewieController.isFullScreen
+                  ? Icons.fullscreen_exit
+                  : Icons.fullscreen,
               size: 30,
               color: Colors.white,
             ),
@@ -444,7 +457,9 @@ GestureDetector _buildMuteButton(
           right: 12.0,
         ),
         child: Icon(
-          _subtitleOn ? Icons.closed_caption : Icons.closed_caption_off_outlined,
+          _subtitleOn
+              ? Icons.closed_caption
+              : Icons.closed_caption_off_outlined,
           color: _subtitleOn ? Colors.white : Colors.grey[700],
         ),
       ),
@@ -491,7 +506,8 @@ GestureDetector _buildMuteButton(
       notifier.hideStuff = true;
 
       chewieController.toggleFullScreen();
-      _showAfterExpandCollapseTimer = Timer(const Duration(milliseconds: 300), () {
+      _showAfterExpandCollapseTimer =
+          Timer(const Duration(milliseconds: 300), () {
         setState(() {
           _cancelAndRestartTimer();
         });
@@ -542,7 +558,9 @@ GestureDetector _buildMuteButton(
 
   Widget _buildProgressBar() {
     return Expanded(
-      child: Padding(padding:const EdgeInsets.only(left: 15),child: MaterialVideoProgressBar(
+        child: Padding(
+      padding: const EdgeInsets.only(left: 15),
+      child: VideoProgressBar(
         controller,
         onDragStart: () {
           setState(() {
@@ -558,6 +576,9 @@ GestureDetector _buildMuteButton(
 
           _startHideTimer();
         },
+        barHeight: 2,
+        handleHeight: 6,
+        drawShadow: false,
         colors: chewieController.materialProgressColors ??
             ChewieProgressColors(
               playedColor: Theme.of(context).colorScheme.secondary,
@@ -565,7 +586,7 @@ GestureDetector _buildMuteButton(
               bufferedColor: Theme.of(context).backgroundColor.withOpacity(0.5),
               backgroundColor: Theme.of(context).disabledColor.withOpacity(.5),
             ),
-      ),)
-    );
+      ),
+    ));
   }
 }
