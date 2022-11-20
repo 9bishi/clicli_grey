@@ -231,12 +231,12 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Expanded(child: ellipsisText(detail['title'])),
-              OutlinedButton(
+              ElevatedButton(
                 onPressed: followBgi,
                 child: Text(
                   hasFollowBgi ? '已追番' : '追番',
-                  style: TextStyle(
-                    color: hasFollowBgi ? Colors.black54 : theme.primaryColor,
+                  style: const TextStyle(
+                    color: Colors.white70,
                   ),
                 ),
               ),

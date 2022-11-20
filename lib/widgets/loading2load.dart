@@ -8,7 +8,7 @@ final loadingWidget = Image.asset(
 
 Widget errorWidget(VoidCallback retryFn) {
   return Center(
-    child: TextButton(
+    child: ElevatedButton(
       child: const Text('java.lang.Error: FATAL EXCEPTION'),
       onPressed: retryFn,
     ),
