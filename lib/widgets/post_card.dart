@@ -82,7 +82,6 @@ class PostCardState extends State<PostCard> with AutomaticKeepAliveClientMixin {
                     padding: const EdgeInsets.only(top: 5, bottom: 5),
                     child: Text(
                       data['tag'].substring(1).replaceAll(' ', ' · '),
-                      style: Theme.of(context).textTheme.caption,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),

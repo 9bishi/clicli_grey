@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
             AppBar(
               backgroundColor: Colors.transparent,
               actions: <Widget>[
-                TextButton(
+                ElevatedButton(
                   child: const Text('注册'),
                   onPressed: () {
                     launch('https://admin.clicli.me/register');

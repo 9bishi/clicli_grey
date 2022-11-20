@@ -5,7 +5,7 @@ import 'package:chewie/src/chewie_player.dart';
 import 'package:chewie/src/chewie_progress_colors.dart';
 import 'package:chewie/src/helpers/utils.dart';
 import 'package:chewie/src/material/material_progress_bar.dart';
-import 'package:chewie/src/material/models/option_item.dart';
+import 'package:chewie/src/models/option_item.dart';
 import 'package:chewie/src/material/widgets/options_dialog.dart';
 import 'package:chewie/src/models/subtitle_model.dart';
 import 'package:chewie/src/notifiers/index.dart';
@@ -272,7 +272,7 @@ class _MaterialControlsState extends State<MaterialControls> with SingleTickerPr
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    if (chewieController.isLive) const Expanded(child: Text('LIVE')) else _buildPosition(iconColor),
+                    _buildPosition(iconColor),
 
                     if (chewieController.allowMuting) _buildMuteButton(controller),
                     if (!chewieController.isLive) _buildProgressBar(),

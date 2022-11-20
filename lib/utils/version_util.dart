@@ -74,7 +74,7 @@ Future<void> checkAppUpdate() async {
                 title: const Text('提示'),
                 content: const Text('有新版本可用ヾ(≧ ▽ ≦)ゝ'),
                 actions: <Widget>[
-                  TextButton(
+                  ElevatedButton(
                     child: const Text('更新'),
                     onPressed: () {
                       launch(
