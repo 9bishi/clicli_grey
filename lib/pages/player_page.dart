@@ -122,7 +122,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
                 ),
               )
             : const EmptyAppBar(),
-        body: videoList.isNotEmpty
+        body: videoList.isNotEmpty && _chewieController != null
             ? Column(
                 children: <Widget>[
                   Container(
