@@ -3,7 +3,7 @@ import 'package:clicli_grey/utils/dio_utils.dart';
 const host = 'https://api.clicli.cc';
 
 getPost(
-  type,
+  String sort,
   String tag,
   int page,
   int pageSize, {
@@ -11,7 +11,7 @@ getPost(
   uid = '',
 }) {
   final res = NetUtils.get(
-      '$host/posts?status=$status&sort=$type&tag=$tag&uid=$uid&page=$page&pageSize=$pageSize');
+      '$host/posts?status=$status&sort=$sort&tag=$tag&uid=$uid&page=$page&pageSize=$pageSize');
   return res;
 }
 

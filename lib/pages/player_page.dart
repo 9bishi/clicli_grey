@@ -218,7 +218,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
     final detail = widget.data;
     final theme = Theme.of(context);
     final caption = theme.textTheme.caption!;
-    final List tags = detail['tag'].substring(1).split(' ');
+    final List tags = detail['tag']?.substring(1).split(' ');
     final time = getTimeDistance(detail['time']);
 
     return ListView(
