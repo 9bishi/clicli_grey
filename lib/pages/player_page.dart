@@ -54,10 +54,10 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
     }
 
     if (mounted) {
-      setState(() {
+      setState(() async {
         if (videoList.isNotEmpty) {
           _tabController = TabController(length: 2, vsync: this);
-          initPlayer();
+          await initPlayer();
         }
       });
       widget.data['pv'] =
@@ -98,6 +98,8 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
           showPlayButton: true,
         ),
         materialProgressColors: _progressColors);
+
+    setState(() {});
   }
 
   @override
