@@ -15,6 +15,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:chewie/chewie.dart' hide MaterialControls;
 import 'package:clicli_grey/widgets/clicli_video_control.dart';
 import 'package:video_player/video_player.dart';
+import 'package:wakelock/wakelock.dart';
 
 import 'package:clicli_grey/widgets/clicli_video_control.dart';
 
@@ -105,6 +106,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    Wakelock.enable();
     getDetail();
     getFollowBgi();
   }
@@ -180,6 +182,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
   void dispose() {
     _videoPlayerController?.dispose();
     _chewieController?.dispose();
+    Wakelock.disable();
     super.dispose();
   }
 

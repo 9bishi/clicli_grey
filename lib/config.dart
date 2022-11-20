@@ -1,7 +1,7 @@
 import 'package:path_provider/path_provider.dart';
 
 class Config {
-  static const String jpushKey = 'a8e4d99ac7f968133d73ff19';
+  static const String jpushKey = 'c4cc23b352d2510157ea7d88';
 
   static Future<String> downloadPath() async {
     return (await getExternalStorageDirectory())!.path;

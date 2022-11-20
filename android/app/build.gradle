@@ -43,7 +43,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.clicli_grey"
+        applicationId "cc.clicli"
         minSdkVersion 19
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
@@ -52,7 +52,7 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : 'a8e4d99ac7f968133d73ff19',
+                JPUSH_APPKEY : 'c4cc23b352d2510157ea7d88',
                 JPUSH_CHANNEL: "developer-default",
         ]
     }
