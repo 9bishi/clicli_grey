@@ -39,7 +39,6 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
 
   List videoList = [];
   Map postDetail = {};
-  Map videoSrc = {};
   int currPlayIndex = 0;
   List dataSourceList = [];
 
@@ -49,7 +48,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
 
     var videos = postDetail['videos']?.split("\n");
     for (var video in videos) {
-      var v = video.split(" ");
+      var v = video.split("\$");
       videoList.add(v);
       dataSourceList.add(v[1]);
     }
@@ -74,8 +73,20 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
       bufferedColor: const Color.fromRGBO(240, 240, 245, 1));
 
   initPlayer() async {
-    _videoPlayerController =
-        VideoPlayerController.network(dataSourceList[currPlayIndex]);
+    var data = dataSourceList[currPlayIndex];
+
+    var realData = jsonDecode((await getPlayUrl(data!)).data)['result'];
+
+    var type = realData['mtype'];
+    var url = realData['url'];
+    // print(url);
+    if (type! == 'm3u8') {
+      _videoPlayerController =
+          VideoPlayerController.network(url!, formatHint: VideoFormat.hls);
+    } else {
+      _videoPlayerController = VideoPlayerController.network(url!);
+    }
+
     _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController!,
         aspectRatio: 16 / 9,
