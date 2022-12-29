@@ -71,27 +71,6 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
             ListBody(
               children: <Widget>[
                 ListTile(
-                  leading: SizedBox(
-                    height: double.infinity,
-                    child: SvgPicture.asset(
-                      isDarkTheme ? 'assets/Moon.svg' : 'assets/Sunny.svg',
-                      width: 25,
-                    ),
-                  ),
-                  title: const Text('暗黑模式'),
-                  trailing: Transform.scale(
-                    scale: 0.8,
-                    child: CupertinoSwitch(
-                      activeColor: ctx.primaryColor,
-                      value: isDarkTheme,
-                      onChanged: (bool val) {
-                        toggleDarkMode(val: val);
-                      },
-                    ),
-                  ),
-                  onTap: toggleDarkMode,
-                ),
-                ListTile(
                   leading: SvgPicture.asset(
                     'assets/周.svg',
                     width: 25,
