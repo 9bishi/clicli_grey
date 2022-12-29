@@ -1,6 +1,6 @@
 import 'package:clicli_grey/utils/dio_utils.dart';
 
-const host = 'https://api.clicli.cc';
+const host = 'https://www.clicli.cc';
 
 getPost(
   String sort,
