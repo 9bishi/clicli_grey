@@ -30,6 +30,6 @@ jobs:
           git config --global user.email "1533540012@qq.com"
           git clone https://${{ secrets.GH_TOKEN }}@github.com/cliclitv/app.clicli.me.git
           cd ./app.clicli.me
-          mv ../build/app/outputs/apk/release/* ./
+          # mv ../build/app/outputs/apk/release/* ./
           git add -A && git commit -m 'update release'
           git push -f https://${{ secrets.GH_TOKEN }}@github.com/cliclitv/app.clicli.me.git
