@@ -21,15 +21,11 @@ jobs:
       - name: init env
         run: |
           flutter pub get
-          export JPUSH_KEY=${{ secrets.JPUSH_KEY }}
-          echo >> android/local.properties 'JPUSH_KEY=${{ secrets.JPUSH_KEY }}'
       - name: build adnroid apk
         run: |
           flutter build apk --release -v
       - name: upload apk
         run: |
-          git config --global user.name ${{ secrets.GIT_USER_NAME }}
-          git config --global user.email ${{ secrets.GIT_EMAL }}
           git clone https://github.com/cliclitv/app.clicli.me.git
           cd ./app.clicli.me
           mv ../build/app/outputs/apk/release/* ./
