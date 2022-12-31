@@ -16,7 +16,6 @@ jobs:
         with:
           node-version: 12
       - run: npm install
-      - run: npm run test
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
