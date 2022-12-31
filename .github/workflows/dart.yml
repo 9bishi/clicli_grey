@@ -24,12 +24,16 @@ jobs:
       - name: build adnroid apk
         run: |
           flutter build apk --release -v
-      - name: upload apk
         run: |
-          git config --global user.name "yisar"
-          git config --global user.email "1533540012@qq.com"
-          git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/cliclitv/app.clicli.me.git
+          git config --local user.email "1533540012@qq.com"
+          git config --local user.name "github-actions[bot]"
+          git clone https://github.com/cliclitv/app.clicli.me.git
           cd ./app.clicli.me
           mv ../build/app/outputs/apk/release/* ./
           git add -A && git commit -m 'update release'
-          git push -f https://${{ secrets.GITHUB_TOKEN }}@github.com/cliclitv/app.clicli.me.git
+          git commit -a -m "Add changes"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
