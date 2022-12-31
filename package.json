@@ -1,0 +1,24 @@
+{
+  "name": "@clicli/app",
+  "version": "3.0.6",
+  "description": "c站 APP 第三版，浅灰紫",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cliclitv/clicli_grey.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cliclitv/clicli_grey/issues"
+  },
+  "homepage": "https://github.com/cliclitv/clicli_grey#readme"
+}
