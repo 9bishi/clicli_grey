@@ -28,7 +28,7 @@ jobs:
       - name: build adnroid apk
         run: |
           flutter build apk --release -v
-          mv ../build/app/outputs/apk/release/* ./
+          mv ./build/app/outputs/apk/release/* ./dist
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
