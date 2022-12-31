@@ -28,9 +28,8 @@ jobs:
         run: |
           git config --global user.name "yisar"
           git config --global user.email "1533540012@qq.com"
-          git remote set-url origin https://yisar:${{ secrets.GH_PWD }}@github.com/cliclitv/app.clicli.me.git
-          git clone https://github.com/cliclitv/app.clicli.me.git
+          git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/cliclitv/app.clicli.me.git
           cd ./app.clicli.me
           mv ../build/app/outputs/apk/release/* ./
           git add -A && git commit -m 'update release'
-          git push -f -u origin main
+          git push -f https://${{ secrets.GITHUB_TOKEN }}@github.com/cliclitv/app.clicli.me.git
