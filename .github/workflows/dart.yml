@@ -24,6 +24,7 @@ jobs:
       - name: build adnroid apk
         run: |
           flutter build apk --release -v
+      - name: build adnroid apk
         run: |
           git config --local user.email "1533540012@qq.com"
           git config --local user.name "github-actions[bot]"
