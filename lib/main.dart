@@ -5,6 +5,7 @@ import 'package:clicli_grey/pages/home_stack/bgi_page.dart';
 import 'package:clicli_grey/pages/home_stack/home_page.dart';
 import 'package:clicli_grey/pages/home_stack/me_page.dart';
 import 'package:clicli_grey/pages/home_stack/ugc_page.dart';
+import 'package:clicli_grey/pages/login_page.dart';
 import 'package:clicli_grey/pages/player_page.dart';
 import 'package:clicli_grey/pages/home_stack/time_line_page.dart';
 import 'package:clicli_grey/service/events.dart';
@@ -64,6 +65,7 @@ class _CliCliAppState extends State<CliCliApp> {
       'CliCli://fav': (_) => const BgiPage(),
       'CliCli://timeline': (_) => const TimeLinePage(),
       'CliCli://history': (_) => const HistoryPage(),
+      'CliCli://login': (_) => const LoginPage(),
     };
 
     final WidgetBuilder? widget = routes[settings.name!];

@@ -4,7 +4,7 @@ String getTimeDistance(String time) {
   int distance = now.difference(dateTime).inDays;
   int hourDistance = now.difference(dateTime).inHours;
   if (distance == 0) {
-    return '$hourDistance time ago';
+    return '$hourDistance hour ago';
   } else if (distance == 1) {
     return 'yesterday';
   } else if (distance == 2) {

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:clicli_grey/utils/toast_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-
+import 'dart:convert';
 import '../instance.dart';
 
 class Response {
@@ -40,7 +40,7 @@ class NetUtils {
         response = Response((await httpClient.get(Uri.parse(url))).body);
       } else {
         response =
-            Response((await httpClient.post(Uri.parse(url), body: data)).body);
+            Response((await httpClient.post(Uri.parse(url), body: jsonEncode(data))).body);
       }
     } catch (e) {
       debugPrint('http error $e');
@@ -54,7 +54,7 @@ class NetUtils {
     return _send('GET', url);
   }
 
-  static Future post(String url, {data}) {
+  static Future post(String url, data) {
     return _send('POST', url, data: data);
   }
 }

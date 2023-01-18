@@ -6,6 +6,7 @@ import 'package:clicli_grey/utils/version_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);
@@ -66,6 +67,29 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
         ),
         body: ListView(
           children: <Widget>[
+            Card(
+              color: const Color.fromRGBO(148, 107, 230, 1),
+              child: ListTile(
+                onLongPress: () {
+                  Instances.sp.remove('usertoken');
+                  Instances.sp.remove('userinfo');
+                  getLocalProfile();
+                },
+                onTap: () {
+                  if (userInfo!['qq'] == '1' || userInfo!['qq'] == null) {
+                    Navigator.pushNamed(context, 'CliCli://login');
+                  }
+                },
+                leading: CachedNetworkImage(
+                  imageUrl:
+                      'http://q1.qlogo.cn/g?b=qq&nk=${userInfo!['qq']}&s=5',
+                  height: 40,
+                  width: 40,
+                  fit: BoxFit.cover,
+                ),
+                title: Text(userInfo!['name']),
+              ),
+            ),
             ListBody(
               children: <Widget>[
                 ListTile(

@@ -36,10 +36,10 @@ getPV(int? id) {
 }
 
 login(data) {
-  return NetUtils.post('https://admin.clicli.me/user/login', data: data);
+  return NetUtils.post('$host/user/login', data);
 }
 
 checkAppUpdateApi() {
   return NetUtils.get(
-      'https://cdn.jsdelivr.net/gh/cliclitv/app.clicli.me@master/output.json');
+      'https://cdn.jsdelivr.net/npm/@clicli/app@3.0.6/web/output-metadata.json');
 }

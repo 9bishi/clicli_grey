@@ -44,14 +44,14 @@ class VersionManager {
   static Future<int?> checkUpdate() async {
     final appInfo = jsonDecode((await checkAppUpdateApi()).data);
     final localAppInfo = (await getAppVersion());
+
     final int major = compare(
-        appInfo[0]['apkData']['versionName'].toString(), localAppInfo.version);
+        appInfo['elements'][0]['versionName'].toString(), localAppInfo.version);
 
     if (major > 0 || major < 0) {
       return major;
     } else if (major == 0) {
-      return appInfo[0]['apkData']['versionCode'] -
-          int.parse(localAppInfo.buildNumber);
+      return 0;
     }
 
     return 0;
@@ -78,7 +78,7 @@ Future<void> checkAppUpdate() async {
                     child: const Text('更新'),
                     onPressed: () {
                       launchUrlString(
-                          'https://cdn.jsdelivr.net/gh/cliclitv/app.clicli.me@master/app-release.apk');
+                          'https://cdn.jsdelivr.net/npm/@clicli/app@latest/web/app-release.apk');
                     },
                   ),
                 ],
@@ -89,6 +89,7 @@ Future<void> checkAppUpdate() async {
       showSnackBar('已是最新版本');
     }
   } catch (e) {
+    print(e);
     showErrorSnackBar('检测更新失败');
   }
 }

@@ -32,6 +32,8 @@ class _LoginPageState extends State<LoginPage> {
     });
     final res = jsonDecode((await login({'name': name, 'pwd': pwd})).data);
 
+    print(res);
+
     if (res['code'] != 200) {
       showErrorSnackBar(res['msg']);
       setState(() {
@@ -62,17 +64,17 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: Column(
           children: <Widget>[
-            AppBar(
-              backgroundColor: Colors.transparent,
-              actions: <Widget>[
-                ElevatedButton(
-                  child: const Text('注册'),
-                  onPressed: () {
-                    launchUrlString('https://admin.clicli.cc/register');
-                  },
-                )
-              ],
-            ),
+            // AppBar(
+            //   backgroundColor: Colors.transparent,
+            //   actions: <Widget>[
+            //     ElevatedButton(
+            //       child: const Text('注册'),
+            //       onPressed: () {
+            //         launchUrlString('https://www.clicli.cc/register');
+            //       },
+            //     )
+            //   ],
+            // ),
             SizedBox(height: MediaQuery.of(context).size.height / 6),
             Center(
               child: ClipRRect(
