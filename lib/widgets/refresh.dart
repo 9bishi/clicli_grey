@@ -37,7 +37,7 @@ class _RefreshWrapperState extends State<RefreshWrapper>
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance?.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       refreshIndicatorKey.currentState?.show();
       _onRefresh();
       widget.scrollController.addListener(() {

@@ -11,13 +11,11 @@ import 'package:clicli_grey/widgets/photo_view_gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:chewie/chewie.dart' hide MaterialControls;
 import 'package:clicli_grey/widgets/clicli_video_control.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock/wakelock.dart';
-
-import 'package:clicli_grey/widgets/clicli_video_control.dart';
 
 //https://stackoverflow.com/questions/52431109/flutter-video-player-fullscreen
 class PlayerPage extends StatefulWidget with WidgetsBindingObserver {
@@ -417,7 +415,7 @@ class _PlayerProfile extends State<PlayerProfile>
             MarkdownBody(
               // selectable: true,
               data: meta + content,
-              onTapLink: (url, _, __) => launch(url),
+              onTapLink: (url, _, __) => launchUrlString(url),
               styleSheetTheme: MarkdownStyleSheetBaseTheme.platform,
               imageBuilder: (Uri uri, String? title, String? alt) =>
                   GestureDetector(

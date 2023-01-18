@@ -3,10 +3,9 @@ import 'dart:convert';
 import 'package:clicli_grey/instance.dart';
 import 'package:clicli_grey/service/events.dart';
 import 'package:clicli_grey/utils/version_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);
@@ -58,7 +57,6 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final ctx = Theme.of(context);
     return Scaffold(
         backgroundColor: const Color.fromRGBO(240, 240, 245, 1),
         appBar: AppBar(
@@ -86,7 +84,7 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
                     width: 25,
                   ),
                   title: const Text('投稿大队'),
-                  onTap: () => launch('https://qm.qq.com/cgi-bin/qm/qr?k=z-UI5jwoxEEL3JvEV4ISZbujBXMaskqk&jump_from=webapi'),
+                  onTap: () => launchUrlString('https://qm.qq.com/cgi-bin/qm/qr?k=z-UI5jwoxEEL3JvEV4ISZbujBXMaskqk&jump_from=webapi'),
                 ),
                 ListTile(
                   leading: SvgPicture.asset(
@@ -99,7 +97,7 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
               ],
             ),
             GestureDetector(
-              onTap: () => launch('https://jq.qq.com/?_wv=1027&k=5lfSD1B'),
+              onTap: () => launchUrlString('https://jq.qq.com/?_wv=1027&k=5lfSD1B'),
               child: Container(
                 alignment: Alignment.center,
                 margin: const EdgeInsets.only(top: 20),

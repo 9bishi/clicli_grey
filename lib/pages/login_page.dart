@@ -7,7 +7,7 @@ import 'package:clicli_grey/service/events.dart';
 import 'package:clicli_grey/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                 ElevatedButton(
                   child: const Text('注册'),
                   onPressed: () {
-                    launch('https://admin.clicli.me/register');
+                    launchUrlString('https://admin.clicli.cc/register');
                   },
                 )
               ],

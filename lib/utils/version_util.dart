@@ -6,7 +6,7 @@ import 'package:clicli_grey/instance.dart';
 import 'package:clicli_grey/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class VersionManager {
   static Future<PackageInfo> getAppVersion() async {
@@ -77,7 +77,7 @@ Future<void> checkAppUpdate() async {
                   ElevatedButton(
                     child: const Text('更新'),
                     onPressed: () {
-                      launch(
+                      launchUrlString(
                           'https://cdn.jsdelivr.net/gh/cliclitv/app.clicli.me@master/app-release.apk');
                     },
                   ),
