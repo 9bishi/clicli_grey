@@ -249,7 +249,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
       'uid': userInfo?['id']
     }))
         .data;
-    if (res['code'] != 200) {
+    if (res['code'] == 200) {
       showSnackBar('点评成功~');
       controller.text = '';
     }
@@ -274,7 +274,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
                     _comment();
                   },
                   decoration: const InputDecoration(
-                    hintText: '请输入评论的内容',
+                    hintText: '点评点评~',
                     isDense: true,
                     contentPadding:
                         EdgeInsets.only(left: 10, top: 5, bottom: 5, right: 10),
