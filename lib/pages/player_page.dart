@@ -139,7 +139,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       TabBar(
-                        tabs: const <Widget>[Tab(text: '剧集'), Tab(text: '简介')],
+                        tabs: const <Widget>[Tab(text: '剧集'), Tab(text: '简介'), Tab(text: '点评',)],
                         controller: _tabController,
                         labelColor: Theme.of(context).primaryColor,
                         isScrollable: true,

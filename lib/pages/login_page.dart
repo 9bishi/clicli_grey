@@ -54,27 +54,20 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: const Color.fromRGBO(240, 240, 245, 1),
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage('assets/login_bg.webp'),
-          ),
-        ),
         child: Column(
           children: <Widget>[
-            // AppBar(
-            //   backgroundColor: Colors.transparent,
-            //   actions: <Widget>[
-            //     ElevatedButton(
-            //       child: const Text('注册'),
-            //       onPressed: () {
-            //         launchUrlString('https://www.clicli.cc/register');
-            //       },
-            //     )
-            //   ],
-            // ),
+            AppBar(
+              iconTheme: const IconThemeData(
+                color: Color.fromRGBO(148, 107, 230, 1), //修改颜色
+              ),
+              backgroundColor: const Color.fromRGBO(240, 240, 245, 1),
+              title: const Text('登录',
+                  style: TextStyle(
+                      fontSize: 24, color: Color.fromRGBO(148, 107, 230, 1))),
+            ),
             SizedBox(height: MediaQuery.of(context).size.height / 6),
             Center(
               child: ClipRRect(
@@ -125,9 +118,20 @@ class _LoginPageState extends State<LoginPage> {
                           color: Theme.of(context).primaryColor,
                           child: const Text(
                             '登录',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white, fontSize: 16),
                           ),
                           onPressed: isDo ? null : _login,
+                        ),
+                        GestureDetector(
+                          onTap: () =>
+                              launchUrlString('https://www.clicli.cc/register'),
+                          child: const Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Text('注册',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(148, 107, 230, 1))),
+                          ),
                         ),
                       ],
                     ),

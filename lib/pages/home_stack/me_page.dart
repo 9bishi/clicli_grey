@@ -68,7 +68,7 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
         body: ListView(
           children: <Widget>[
             Card(
-              color: const Color.fromRGBO(148, 107, 230, 1),
+              color: const Color.fromRGBO(240, 240, 245, 1),
               child: ListTile(
                 onLongPress: () {
                   Instances.sp.remove('usertoken');
@@ -80,13 +80,13 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
                     Navigator.pushNamed(context, 'CliCli://login');
                   }
                 },
-                leading: CachedNetworkImage(
+                leading:ClipOval(child:  CachedNetworkImage(
                   imageUrl:
                       'http://q1.qlogo.cn/g?b=qq&nk=${userInfo!['qq']}&s=5',
                   height: 40,
                   width: 40,
                   fit: BoxFit.cover,
-                ),
+                )),
                 title: Text(userInfo!['name']),
               ),
             ),
@@ -107,7 +107,15 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
                     'assets/qq.svg',
                     width: 25,
                   ),
-                  title: const Text('投稿大队'),
+                  title: const Text('交流群'),
+                  onTap: () => launchUrlString('https://www.clicli.cc'),
+                ),
+                ListTile(
+                  leading: SvgPicture.asset(
+                    'assets/qq.svg',
+                    width: 25,
+                  ),
+                  title: const Text('投稿作者大队'),
                   onTap: () => launchUrlString('https://qm.qq.com/cgi-bin/qm/qr?k=z-UI5jwoxEEL3JvEV4ISZbujBXMaskqk&jump_from=webapi'),
                 ),
                 ListTile(

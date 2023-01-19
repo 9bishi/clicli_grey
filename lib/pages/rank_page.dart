@@ -35,7 +35,9 @@ class _RankPageState extends State<RankPage> {
       backgroundColor: const Color.fromRGBO(240, 240, 245, 1),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(240, 240, 245, 1),
-        automaticallyImplyLeading: false,
+        iconTheme: const IconThemeData(
+                color: Color.fromRGBO(148, 107, 230, 1), //修改颜色
+              ),
         title: const Text('排行榜',
             style: TextStyle(
                 fontSize: 24, color: Color.fromRGBO(148, 107, 230, 1))),
@@ -59,8 +61,9 @@ class _RankPageState extends State<RankPage> {
                         constraints: const BoxConstraints(minHeight: 120),
                         child: Image(
                           image: NetworkImage(getSuo(rankList[i]['content'])),
-                          width: MediaQuery.of(context).size.width / 4,
+                          width: MediaQuery.of(context).size.width / 3,
                           fit: BoxFit.cover,
+                          height: 180,
                         ),
                       ),
                     ),
