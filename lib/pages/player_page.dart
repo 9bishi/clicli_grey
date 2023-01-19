@@ -243,19 +243,23 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
   }
 
   _comment() async {
-    if (controller.text.isEmpty || userInfo?['id'].isEmpty) {
-      showSnackBar('可能没登陆呢~');
-      return;
-    }
-    final res = await addComment({
-      'content': controller.text,
-      'pid': widget.data['id'],
-      'uid': userInfo?['id']
-    });
-    final data = jsonDecode(res.data);
-    if (data['code'] == 200) {
-      showSnackBar('点评成功~');
-      controller.text = '';
+    try {
+      if (controller.text.isEmpty) {
+        showSnackBar('要写内容~');
+        return;
+      }
+      final res = await addComment({
+        'content': controller.text,
+        'pid': widget.data['id'],
+        'uid': userInfo?['id']
+      });
+      final data = jsonDecode(res.data);
+      if (data['code'] == 200) {
+        showSnackBar('点评成功~');
+        controller.text = '';
+      }
+    } catch (e) {
+      showSnackBar(e.toString());
     }
   }
 
@@ -274,7 +278,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
                   textInputAction: TextInputAction.send,
                   keyboardType: TextInputType.multiline,
                   // onTap: () {
-                    
+
                   // },
                   onEditingComplete: () {
                     //点击发送调用

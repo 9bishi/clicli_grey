@@ -107,16 +107,8 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
                     'assets/qq.svg',
                     width: 25,
                   ),
-                  title: const Text('交流群'),
-                  onTap: () => launchUrlString('https://www.clicli.cc/play/gv2323'),
-                ),
-                ListTile(
-                  leading: SvgPicture.asset(
-                    'assets/qq.svg',
-                    width: 25,
-                  ),
-                  title: const Text('投稿作者大队'),
-                  onTap: () => launchUrlString('https://qm.qq.com/cgi-bin/qm/qr?k=z-UI5jwoxEEL3JvEV4ISZbujBXMaskqk&jump_from=webapi'),
+                  title: const Text('动漫交流群'),
+                  onTap: () => launchUrlString('https://jq.qq.com/?_wv=1027&k=oR0AoouU'),
                 ),
                 ListTile(
                   leading: SvgPicture.asset(
