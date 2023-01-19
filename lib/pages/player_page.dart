@@ -16,6 +16,9 @@ import 'package:clicli_grey/widgets/clicli_video_control.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock/wakelock.dart';
+import 'package:clicli_grey/utils/toast_utils.dart';
+
+// import 'package:cached_network_image/cached_network_image.dart';
 
 //https://stackoverflow.com/questions/52431109/flutter-video-player-fullscreen
 class PlayerPage extends StatefulWidget with WidgetsBindingObserver {
@@ -40,6 +43,9 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
   Map postDetail = {};
   int currPlayIndex = 0;
   List dataSourceList = [];
+  List commentList = [];
+  // final ValueChanged onEditingCompleteText;
+  final TextEditingController controller = TextEditingController();
 
   getDetail() async {
     postDetail =
@@ -55,7 +61,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
     if (mounted) {
       setState(() async {
         if (videoList.isNotEmpty) {
-          _tabController = TabController(length: 2, vsync: this);
+          _tabController = TabController(length: 3, vsync: this);
           await initPlayer();
         }
       });
@@ -63,6 +69,12 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
           jsonDecode((await getPV(widget.data['id'])).data)['result']['pv'];
       setState(() {});
     }
+  }
+
+  getCommentList() async {
+    commentList = jsonDecode(
+        (await getComments(widget.data['id'], 100)).data)['comments'];
+    setState(() {});
   }
 
   get _progressColors => ChewieProgressColors(
@@ -107,6 +119,8 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
     Wakelock.enable();
     getDetail();
     getFollowBgi();
+    getCommentList();
+    getLocalProfile();
   }
 
   @override
@@ -139,7 +153,11 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       TabBar(
-                        tabs: const <Widget>[Tab(text: '剧集'), Tab(text: '简介'), Tab(text: '点评',)],
+                        tabs: const <Widget>[
+                          Tab(text: '剧集'),
+                          Tab(text: '简介'),
+                          Tab(text: '点评')
+                        ],
                         controller: _tabController,
                         labelColor: Theme.of(context).primaryColor,
                         isScrollable: true,
@@ -167,10 +185,11 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
                       controller: _tabController,
                       children: <Widget>[
                         buildProfile(context),
-                        PlayerProfile(detail, videoList.isNotEmpty)
+                        PlayerProfile(detail, videoList.isNotEmpty),
+                        buildComments(context),
                       ],
                     ),
-                  )
+                  ),
                 ],
               )
             : PlayerProfile(detail, videoList.isNotEmpty));
@@ -182,6 +201,14 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
     _chewieController?.dispose();
     Wakelock.disable();
     super.dispose();
+  }
+
+  Map? userInfo;
+
+  getLocalProfile() {
+    final u = Instances.sp.getString('userinfo');
+    userInfo = u != null ? jsonDecode(u) : {'uid': 2};
+    setState(() {});
   }
 
   bool hasFollowBgi = false;
@@ -213,6 +240,55 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
     hasFollowBgi = !hasFollowBgi;
     Instances.sp.setString('followBgi', jsonEncode(o));
     setState(() {});
+  }
+
+  _comment() async {
+    final res = jsonDecode(await addComment({
+      'content': controller.text,
+      'pid': widget.data['id'],
+      'uid': userInfo?['id']
+    }))
+        .data;
+    if (res['code'] != 200) {
+      showSnackBar('点评成功~');
+      controller.text = '';
+    }
+  }
+
+  Widget buildCommentInput(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.all(10),
+        color: const Color.fromRGBO(240, 240, 245, 1),
+        child: Container(
+            decoration: const BoxDecoration(color: Colors.white),
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width -20,
+                child: TextField(
+                  controller: controller,
+                  autofocus: true,
+                  style: const TextStyle(fontSize: 18),
+                  textInputAction: TextInputAction.send,
+                  keyboardType: TextInputType.multiline,
+                  onEditingComplete: () {
+                    //点击发送调用
+                    _comment();
+                  },
+                  decoration: const InputDecoration(
+                    hintText: '请输入评论的内容',
+                    isDense: true,
+                    contentPadding:
+                        EdgeInsets.only(left: 10, top: 5, bottom: 5, right: 10),
+                    border: OutlineInputBorder(
+                      gapPadding: 0,
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
+                    ),
+                  ),
+                  minLines: 1,
+                  maxLines: 5,
+                ))));
   }
 
   Widget buildProfile(BuildContext context) {
@@ -284,6 +360,50 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
           const SizedBox(height: 10),
           buildVideoList()
         ]);
+  }
+
+  Widget buildComments(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned(
+            child: ListView(children: <Widget>[
+          Column(
+            children: List.generate(commentList.length, (i) {
+              return ListTile(
+                leading: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                getAvatar(avatar: commentList[i]['uqq']))))),
+                title: Row(
+                  children: <Widget>[
+                    Expanded(
+                        flex: 1,
+                        child: Text(commentList[i]['uname'],
+                            style: const TextStyle(fontSize: 12))),
+                    Text(commentList[i]['time'],
+                        style: const TextStyle(fontSize: 12))
+                  ],
+                ),
+                subtitle: Row(
+                  children: <Widget>[
+                    Expanded(
+                        flex: 1,
+                        child: Text(commentList[i]['content'],
+                            style: const TextStyle(fontSize: 16))),
+                  ],
+                ),
+              );
+            }),
+          ),
+        ])),
+        Positioned(child: buildCommentInput(context), bottom: 0)
+      ],
+    );
   }
 
   Widget buildVideoList() {

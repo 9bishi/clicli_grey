@@ -108,7 +108,7 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
                     width: 25,
                   ),
                   title: const Text('交流群'),
-                  onTap: () => launchUrlString('https://www.clicli.cc'),
+                  onTap: () => launchUrlString('https://www.clicli.cc/play/gv2323'),
                 ),
                 ListTile(
                   leading: SvgPicture.asset(

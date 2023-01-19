@@ -75,7 +75,7 @@ class _BgiPageState extends State<BgiPage> with AutomaticKeepAliveClientMixin {
       backgroundColor: const Color.fromRGBO(240, 240, 245, 1),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(240, 240, 245, 1),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Color.fromRGBO(148, 107, 230, 1), //修改颜色
         ),
         title: const Text(

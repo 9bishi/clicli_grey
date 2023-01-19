@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     });
     final res = jsonDecode((await login({'name': name, 'pwd': pwd})).data);
 
-    print(res);
+    // print(res);
 
     if (res['code'] != 200) {
       showErrorSnackBar(res['msg']);

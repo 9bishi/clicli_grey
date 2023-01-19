@@ -89,7 +89,7 @@ Future<void> checkAppUpdate() async {
       showSnackBar('已是最新版本');
     }
   } catch (e) {
-    print(e);
+    // print(e);
     showErrorSnackBar('检测更新失败');
   }
 }

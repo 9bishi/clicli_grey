@@ -35,8 +35,16 @@ getPV(int? id) {
   return NetUtils.get('$host/pv/$id');
 }
 
+getComments(int? pid, pageSize){
+  return NetUtils.get('$host/comments?pid=$pid&page=1&pageSize=$pageSize');
+}
+
 login(data) {
   return NetUtils.post('$host/user/login', data);
+}
+
+addComment(data){
+  return NetUtils.post('$host/comment/add', data);
 }
 
 checkAppUpdateApi() {
