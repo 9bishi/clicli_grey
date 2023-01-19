@@ -265,7 +265,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
                 width: MediaQuery.of(context).size.width -20,
                 child: TextField(
                   controller: controller,
-                  autofocus: true,
+                  // autofocus: true,
                   style: const TextStyle(fontSize: 18),
                   textInputAction: TextInputAction.send,
                   keyboardType: TextInputType.multiline,
