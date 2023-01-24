@@ -98,6 +98,10 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
       _videoPlayerController = VideoPlayerController.network(url!);
     }
 
+    var sort = postDetail['sort'] == '推流';
+
+    print(sort);
+
     _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController!,
         aspectRatio: 16 / 9,
@@ -105,8 +109,9 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
         looping: false,
         allowMuting: false,
         allowPlaybackSpeedChanging: false,
-        customControls: const MaterialControls(
+        customControls: MaterialControls(
           showPlayButton: true,
+          showControls: !sort,
         ),
         materialProgressColors: _progressColors);
 

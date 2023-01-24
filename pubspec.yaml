@@ -82,6 +82,7 @@ flutter:
     - assets/发现.svg
     - assets/mine.svg
     - assets/time.svg
+    - assets/live.svg
     - assets/play.svg
     - assets/play_outline.svg
     - assets/Moon.svg

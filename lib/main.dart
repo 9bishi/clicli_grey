@@ -5,6 +5,7 @@ import 'package:clicli_grey/pages/home_stack/bgi_page.dart';
 import 'package:clicli_grey/pages/home_stack/home_page.dart';
 import 'package:clicli_grey/pages/home_stack/me_page.dart';
 import 'package:clicli_grey/pages/home_stack/ugc_page.dart';
+import 'package:clicli_grey/pages/home_stack/live_page.dart';
 import 'package:clicli_grey/pages/login_page.dart';
 import 'package:clicli_grey/pages/player_page.dart';
 import 'package:clicli_grey/pages/home_stack/time_line_page.dart';
@@ -64,6 +65,7 @@ class _CliCliAppState extends State<CliCliApp> {
       'CliCli://player': (_) => PlayerPage(data: arg!['data']),
       'CliCli://fav': (_) => const BgiPage(),
       'CliCli://timeline': (_) => const TimeLinePage(),
+      'CliCli://live': (_) => const LivePage(),
       'CliCli://history': (_) => const HistoryPage(),
       'CliCli://login': (_) => const LoginPage(),
     };
@@ -104,13 +106,13 @@ class _MyHomePageState extends State<MyHomePage> {
   static const List<dynamic> pagesIcon = [
     'assets/home-fill.svg',
     'assets/发现.svg',
-    'assets/time.svg',
+    'assets/live.svg',
     'assets/mine.svg'
   ];
   final _pages = [
     const HomePage(),
     const UGCPage(),
-    const TimeLinePage(),
+    const LivePage(),
     const MePage()
   ];
 

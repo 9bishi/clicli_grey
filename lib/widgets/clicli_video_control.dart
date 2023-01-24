@@ -18,10 +18,12 @@ import 'package:video_player/video_player.dart';
 class MaterialControls extends StatefulWidget {
   const MaterialControls({
     this.showPlayButton = true,
+    this.showControls = true,
     Key? key,
   }) : super(key: key);
 
   final bool showPlayButton;
+  final bool showControls;
 
   @override
   State<StatefulWidget> createState() {
@@ -90,19 +92,21 @@ class _MaterialControlsState extends State<MaterialControls>
               else
                 _buildHitArea(),
               _buildActionBar(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  if (_subtitleOn)
-                    Transform.translate(
-                      offset: Offset(
-                          0.0, notifier.hideStuff ? barHeight * 0.8 : 0.0),
-                      child:
-                          _buildSubtitles(context, chewieController.subtitle!),
-                    ),
-                  _buildBottomBar(context),
-                ],
-              ),
+              widget.showControls
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        if (_subtitleOn)
+                          Transform.translate(
+                            offset: Offset(0.0,
+                                notifier.hideStuff ? barHeight * 0.8 : 0.0),
+                            child: _buildSubtitles(
+                                context, chewieController.subtitle!),
+                          ),
+                        _buildBottomBar(context),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
             ],
           ),
         ),

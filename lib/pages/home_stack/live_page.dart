@@ -7,16 +7,16 @@ import 'package:clicli_grey/widgets//post_card.dart';
 import 'package:clicli_grey/widgets/refresh.dart';
 import 'package:flutter/material.dart';
 
-class UGCPage extends StatefulWidget {
-  const UGCPage({Key? key}) : super(key: key);
+class LivePage extends StatefulWidget {
+  const LivePage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _UGCPageState();
+    return _LivePageState();
   }
 }
 
-class _UGCPageState extends State<UGCPage> with AutomaticKeepAliveClientMixin {
+class _LivePageState extends State<LivePage> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -25,7 +25,7 @@ class _UGCPageState extends State<UGCPage> with AutomaticKeepAliveClientMixin {
   int page = 1;
 
   Future<bool> getUGC() async {
-    final res = jsonDecode((await getPost('原创', '', page, 20)).data)['posts'];
+    final res = jsonDecode((await getPost('推流', '', page, 20)).data)['posts'];
     if (res?.isNotEmpty) {
       setState(() {
         data.addAll(res);
@@ -61,7 +61,7 @@ class _UGCPageState extends State<UGCPage> with AutomaticKeepAliveClientMixin {
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(240, 240, 245, 1),
           automaticallyImplyLeading: false,
-          title: const Text('原创', style: TextStyle(fontSize: 24, color: Color.fromRGBO(148, 107, 230, 1))),
+          title: const Text('推流', style: TextStyle(fontSize: 24, color: Color.fromRGBO(148, 107, 230, 1))),
           centerTitle: false,
         ),
         body: RefreshWrapper(

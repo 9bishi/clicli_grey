@@ -1,6 +1,6 @@
 {
   "name": "@clicli/app",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "description": "c站 APP 第三版，浅灰紫",
   "main": "index.js",
   "directories": {
