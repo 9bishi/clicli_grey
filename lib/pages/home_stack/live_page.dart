@@ -61,7 +61,7 @@ class _LivePageState extends State<LivePage> with AutomaticKeepAliveClientMixin 
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(240, 240, 245, 1),
           automaticallyImplyLeading: false,
-          title: const Text('推流', style: TextStyle(fontSize: 24, color: Color.fromRGBO(148, 107, 230, 1))),
+          title: const Text('放映厅', style: TextStyle(fontSize: 24, color: Color.fromRGBO(148, 107, 230, 1))),
           centerTitle: false,
         ),
         body: RefreshWrapper(
