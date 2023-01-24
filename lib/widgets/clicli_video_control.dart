@@ -92,21 +92,19 @@ class _MaterialControlsState extends State<MaterialControls>
               else
                 _buildHitArea(),
               _buildActionBar(),
-              widget.showControls
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        if (_subtitleOn)
-                          Transform.translate(
-                            offset: Offset(0.0,
-                                notifier.hideStuff ? barHeight * 0.8 : 0.0),
-                            child: _buildSubtitles(
-                                context, chewieController.subtitle!),
-                          ),
-                        _buildBottomBar(context),
-                      ],
-                    )
-                  : const SizedBox.shrink(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  if (_subtitleOn)
+                    Transform.translate(
+                      offset: Offset(
+                          0.0, notifier.hideStuff ? barHeight * 0.8 : 0.0),
+                      child:
+                          _buildSubtitles(context, chewieController.subtitle!),
+                    ),
+                  _buildBottomBar(context),
+                ],
+              )
             ],
           ),
         ),
@@ -287,10 +285,13 @@ class _MaterialControlsState extends State<MaterialControls>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    _buildPosition(iconColor),
+                    widget.showControls
+                        ? _buildPosition(iconColor)
+                        : const SizedBox.shrink(),
                     if (chewieController.allowMuting)
                       _buildMuteButton(controller),
-                    if (!chewieController.isLive) _buildProgressBar(),
+                    if (!chewieController.isLive && widget.showControls)
+                      _buildProgressBar(),
                     if (chewieController.allowFullScreen) _buildExpandButton(),
                   ],
                 ),

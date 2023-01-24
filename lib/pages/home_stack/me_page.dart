@@ -5,6 +5,7 @@ import 'package:clicli_grey/service/events.dart';
 import 'package:clicli_grey/utils/version_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -108,7 +109,7 @@ class _MePageState extends State<MePage> with AutomaticKeepAliveClientMixin {
                     width: 25,
                   ),
                   title: const Text('动漫交流群'),
-                  onTap: () => launchUrlString('https://jq.qq.com/?_wv=1027&k=oR0AoouU'),
+                  onTap: () => launchUrl(Uri.parse('https://jq.qq.com/?_wv=1027&k=TsIZzpZc')),
                 ),
                 ListTile(
                   leading: SvgPicture.asset(
