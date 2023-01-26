@@ -23,7 +23,7 @@ getAvatar({avatar = ''}) {
     return 'https://q1.qlogo.cn/g?b=qq&nk=$avatar&s=640';
   } else {
     final hash = generateMd5(avatar);
-    return 'https://sdn.geekzu.org/avatar/$hash?s=100&d=retro';
+    return 'https://cdn.sep.cc/avatar/$hash?s=100&d=retro';
   }
 }
 
