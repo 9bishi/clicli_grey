@@ -67,7 +67,7 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
       });
       widget.data['pv'] =
           jsonDecode((await getPV(widget.data['id'])).data)['result']['pv'];
-      setState(() {});
+      setState(() async {});
     }
   }
 
@@ -90,7 +90,10 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
 
     var type = realData['mtype'];
     var url = realData['url'];
-    // print(url);
+
+    if (url?.contains('igsubs')) {
+      url = url.replaceAll('83', '82').replaceAll('https', 'http');
+    }
     if (type! == 'm3u8') {
       _videoPlayerController =
           VideoPlayerController.network(url!, formatHint: VideoFormat.hls);
@@ -99,8 +102,6 @@ class _PlayerPageState extends State<PlayerPage> with TickerProviderStateMixin {
     }
 
     var sort = postDetail['sort'] == '推流';
-
-    print(sort);
 
     _chewieController = ChewieController(
         videoPlayerController: _videoPlayerController!,
