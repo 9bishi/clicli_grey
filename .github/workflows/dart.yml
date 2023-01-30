@@ -25,12 +25,7 @@ jobs:
       - name: init env
         run: |
           flutter pub get
-      - name: build adnroid apk
-        run: |
-          flutter build ios --release --no-codesign
-          cd ./build
-          ls
-      - name: build ios ipa
+      - name: build android apk
         run: |
           flutter build apk --release -v
           mv ./build/app/outputs/apk/release/* ./web
