@@ -27,6 +27,11 @@ jobs:
           flutter pub get
       - name: build adnroid apk
         run: |
+          flutter build ios --release --no-codesign
+          cd ./build
+          ls
+      - name: build ios ipa
+        run: |
           flutter build apk --release -v
           mv ./build/app/outputs/apk/release/* ./web
       - uses: JS-DevTools/npm-publish@v1
