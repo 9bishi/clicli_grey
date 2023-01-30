@@ -16,4 +16,10 @@ jobs:
         channel: 'stable'
         architecture: x64
     - run: flutter pub get
-    - run: flutter build ios --release --no-codesign
+    - run: |
+      flutter build ios --release --no-codesign
+      mkdir ./web/CliCli
+      mv /Users/runner/work/clicli_grey/clicli_grey/build/ios/iphoneos/Runner.app ./web/CliCli
+      cd ./web
+      zip -r CliCli.ipa CliCli
+
